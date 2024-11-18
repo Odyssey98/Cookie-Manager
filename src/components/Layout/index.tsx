@@ -124,7 +124,7 @@ const Layout: React.FC = () => {
       </div>
 
       {/* 主内容区 - 添加最小宽度 */}
-      <div className="flex-1 w-[600px] min-w-[600px] overflow-auto p-6 bg-white dark:bg-zinc-900">
+      <div className="flex-1 w-[600px] min-w-[800px] overflow-auto p-6 bg-white dark:bg-zinc-900">
         {getActiveComponent()}
       </div>
     </div>

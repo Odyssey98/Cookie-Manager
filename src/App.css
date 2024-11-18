@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  width: 600px;
+  width: 800px;
 }
 
 /* 如果需要滚动，只在内容区域滚动 */

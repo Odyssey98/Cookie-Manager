@@ -197,64 +197,94 @@ const CookieManager: React.FC = () => {
       </div>
 
       {/* Cookie 列表 */}
-      <div className="flex-1 overflow-auto p-3 w-full">
-        <div className="space-y-2 w-full">
+      <div className="flex-1 overflow-auto p-3">
+        <div className="space-y-3">
           {filteredCookies.map(cookie => (
             <div
               key={`${cookie.domain}:${cookie.name}`}
-              className="p-4 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg group border border-zinc-200 dark:border-zinc-800 w-full"
+              className="bg-white dark:bg-zinc-800 rounded-2xl p-4 border border-zinc-100 dark:border-zinc-700"
             >
-              <div className="flex items-start gap-4 w-full">
-                <Checkbox
-                  checked={selectedCookies.some(
-                    selected => selected.domain === cookie.domain && selected.name === cookie.name
-                  )}
-                  onChange={e => handleSelect(cookie, e.target.checked)}
-                />
-                <div className="flex-1 min-w-0 text-sm">
-                  <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                    {cookie.domain}
-                  </div>
-                  <div className="grid grid-cols-[120px_1fr] gap-x-4 gap-y-1 mt-2 text-zinc-600 dark:text-zinc-400">
-                    <div className="text-right">名称:</div>
-                    <div className="truncate">{cookie.name}</div>
-                    <div className="text-right">值:</div>
-                    <div className="truncate">{cookie.value}</div>
-                    <div className="text-right">路径:</div>
-                    <div>{cookie.path}</div>
-                    <div className="text-right">过期时间:</div>
-                    <div>
-                      {cookie.expirationDate 
-                        ? new Date(cookie.expirationDate * 1000).toLocaleString('zh-CN')
-                        : '会话 Cookie'
-                      }
+              <div className="flex items-start justify-between">
+                <div className="flex items-start space-x-3 flex-1 min-w-0">
+                  <Checkbox
+                    checked={selectedCookies.some(
+                      selected => selected.domain === cookie.domain && selected.name === cookie.name
+                    )}
+                    onChange={e => handleSelect(cookie, e.target.checked)}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-base font-medium text-zinc-900 dark:text-zinc-100">
+                      {cookie.domain}
                     </div>
-                    <div className="text-right">安全标志:</div>
-                    <div>{cookie.secure ? '是' : '否'}</div>
-                    <div className="text-right">HttpOnly:</div>
-                    <div>{cookie.httpOnly ? '是' : '否'}</div>
-                    <div className="text-right">SameSite:</div>
-                    <div>{cookie.sameSite}</div>
+                    <div className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                      {cookie.name}
+                    </div>
+                    
+                    <div className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+                      <span className="text-sm text-zinc-500 whitespace-nowrap">值:</span>
+                      <div className="text-sm text-zinc-700 dark:text-zinc-300 overflow-hidden">
+                        <div className="truncate max-w-[400px]">{cookie.value}</div>
+                      </div>
+                      
+                      <span className="text-sm text-zinc-500 whitespace-nowrap">路径:</span>
+                      <div className="text-sm text-zinc-700 dark:text-zinc-300 overflow-hidden">
+                        <div className="truncate">{cookie.path}</div>
+                      </div>
+                      
+                      <span className="text-sm text-zinc-500 whitespace-nowrap">过期时间:</span>
+                      <span className="text-sm text-zinc-700 dark:text-zinc-300">
+                        {cookie.expirationDate 
+                          ? new Date(cookie.expirationDate * 1000).toLocaleString('zh-CN')
+                          : '会话 Cookie'
+                        }
+                      </span>
+                    </div>
+
+                    <div className="mt-3 grid grid-cols-3 gap-4 text-sm">
+                      <div className="flex items-center">
+                        <span className="text-zinc-500">安全标志: </span>
+                        <span className="ml-2 text-zinc-700 dark:text-zinc-300">
+                          {cookie.secure ? '是' : '否'}
+                        </span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="text-zinc-500">HttpOnly: </span>
+                        <span className="ml-2 text-zinc-700 dark:text-zinc-300">
+                          {cookie.httpOnly ? '是' : '否'}
+                        </span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="text-zinc-500">SameSite: </span>
+                        <span className="ml-2 text-zinc-700 dark:text-zinc-300">
+                          {cookie.sameSite}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 flex gap-2">
-                  <Button 
+
+                {/* 修复按钮显示 */}
+                <div className="flex flex-col gap-2 ml-4 flex-shrink-0">
+                  <Button
                     size="small"
-                    className="border-zinc-200 dark:border-zinc-700 dark:text-zinc-300"
+                    className="inline-flex items-center justify-center gap-1 px-3 min-w-[90px] bg-white hover:bg-gray-50"
                     onClick={() => addToList(cookie, 'gray')}
                   >
-                    加入灰名单
+                    <span>+</span>
+                    <span>灰名单</span>
                   </Button>
-                  <Button 
+                  <Button
                     size="small"
-                    className="border-zinc-200 dark:border-zinc-700 dark:text-zinc-300"
+                    className="inline-flex items-center justify-center gap-1 px-3 min-w-[90px] bg-white hover:bg-gray-50"
                     onClick={() => addToList(cookie, 'white')}
                   >
-                    加入白名单
+                    <span>✓</span>
+                    <span>白名单</span>
                   </Button>
-                  <Button 
-                    size="small" 
+                  <Button
+                    size="small"
                     danger
+                    className="inline-flex items-center justify-center w-8 h-8"
                     icon={<DeleteOutlined />}
                     onClick={() => deleteCookie(cookie)}
                   />
