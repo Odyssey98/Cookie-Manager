@@ -7,7 +7,12 @@
     "cookies",
     "storage",
     "tabs",
-    "sidePanel"
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "http://*/*",
+    "https://*/*"
   ],
   "action": {
     "default_title": "Cookie 管理器",

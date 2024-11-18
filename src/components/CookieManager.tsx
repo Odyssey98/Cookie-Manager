@@ -20,14 +20,42 @@ const CookieManager: React.FC = () => {
   const [selectedCookies, setSelectedCookies] = useState<Cookie[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // 检查权限状态
+  const checkPermissions = async () => {
+    try {
+      const hasPermission = await chrome.permissions.contains({
+        origins: ['<all_urls>']
+      });
+      
+      if (!hasPermission) {
+        message.error('扩展缺少必要的访问权限，请重新安装扩展');
+      } else {
+        fetchCookies(); // 如果有权限就获取 cookies
+      }
+    } catch (error) {
+      console.error('权限检查失败:', error);
+      message.error('权限检查失败，请确保正确安装扩展');
+    }
+  };
+
+  // 组件加载时检查权限
+  useEffect(() => {
+    checkPermissions();
+  }, []);
+
   // 获取所有 cookies
   const fetchCookies = useCallback(async () => {
     try {
       setLoading(true);
       const allCookies = await chrome.cookies.getAll({});
+      console.log('获取到的 cookies:', allCookies);
+      if (allCookies.length === 0) {
+        message.info('当前没有可显示的 Cookie');
+      }
       setCookies(allCookies);
     } catch (error) {
-      message.error('获取 Cookie 失败');
+      console.error('获取 Cookie 失败:', error);
+      message.error('获取 Cookie 失败: ' + (error as Error).message);
     } finally {
       setLoading(false);
     }
