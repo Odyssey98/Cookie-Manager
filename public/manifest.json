@@ -10,7 +10,10 @@
     "sidePanel"
   ],
   "action": {
-    "default_title": "Cookie 管理器"
+    "default_title": "Cookie 管理器",
+    "default_popup": "index.html",
+    "default_width": 800,
+    "default_height": 600
   },
   "side_panel": {
     "default_path": "index.html"

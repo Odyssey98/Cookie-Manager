@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  width: 600px;
 }
 
 /* 如果需要滚动，只在内容区域滚动 */
@@ -12,7 +13,7 @@ body {
 
 /* 移除默认的扩展 popup 样式 */
 #root {
-  width: 100%;
+  width: 600px;
   height: 100vh;
   position: relative;
 }

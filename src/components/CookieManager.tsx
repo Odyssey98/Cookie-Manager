@@ -121,9 +121,9 @@ const CookieManager: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-full">
       {/* 顶部操作栏 */}
-      <div className="p-3 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800">
+      <div className="p-3 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 w-full">
         <div className="flex gap-2">
           <Button size="small">导出设置</Button>
           <Button size="small">导入设置</Button>
@@ -140,7 +140,7 @@ const CookieManager: React.FC = () => {
       </div>
 
       {/* 搜索和批量操作区 */}
-      <div className="p-3 space-y-3 border-b border-zinc-200 dark:border-zinc-800">
+      <div className="p-3 space-y-3 border-b border-zinc-200 dark:border-zinc-800 w-full">
         <Input
           size="small"
           prefix={<SearchOutlined />}
@@ -169,27 +169,27 @@ const CookieManager: React.FC = () => {
       </div>
 
       {/* Cookie 列表 */}
-      <div className="flex-1 overflow-auto p-3">
-        <div className="space-y-2">
+      <div className="flex-1 overflow-auto p-3 w-full">
+        <div className="space-y-2 w-full">
           {filteredCookies.map(cookie => (
             <div
               key={`${cookie.domain}:${cookie.name}`}
-              className="p-4 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg group border border-zinc-200 dark:border-zinc-800"
+              className="p-4 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg group border border-zinc-200 dark:border-zinc-800 w-full"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 w-full">
                 <Checkbox
                   checked={selectedCookies.some(
                     selected => selected.domain === cookie.domain && selected.name === cookie.name
                   )}
                   onChange={e => handleSelect(cookie, e.target.checked)}
                 />
-                <div className="flex-1 text-sm">
+                <div className="flex-1 min-w-0 text-sm">
                   <div className="font-medium text-zinc-900 dark:text-zinc-100">
                     {cookie.domain}
                   </div>
-                  <div className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-1 mt-2 text-zinc-600 dark:text-zinc-400">
+                  <div className="grid grid-cols-[120px_1fr] gap-x-4 gap-y-1 mt-2 text-zinc-600 dark:text-zinc-400">
                     <div className="text-right">名称:</div>
-                    <div>{cookie.name}</div>
+                    <div className="truncate">{cookie.name}</div>
                     <div className="text-right">值:</div>
                     <div className="truncate">{cookie.value}</div>
                     <div className="text-right">路径:</div>
@@ -209,7 +209,7 @@ const CookieManager: React.FC = () => {
                     <div>{cookie.sameSite}</div>
                   </div>
                 </div>
-                <div className="opacity-0 group-hover:opacity-100 flex gap-2">
+                <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 flex gap-2">
                   <Button 
                     size="small"
                     className="border-zinc-200 dark:border-zinc-700 dark:text-zinc-300"

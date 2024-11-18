@@ -95,34 +95,36 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-screen w-[400px]">
       {/* 侧边栏 */}
-      <div className="w-14 flex-shrink-0 bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800">
-        <div className="p-2 border-b border-zinc-200 dark:border-zinc-800">
-          <div className="text-[10px] text-zinc-500 dark:text-zinc-400">CAD</div>
-          <div className="text-xs font-medium text-zinc-900 dark:text-zinc-100">1.0.0</div>
+      <div className="w-[200px] flex-shrink-0 bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800">
+        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
+          <div className="text-sm text-zinc-500 dark:text-zinc-400">CAD</div>
+          <div className="text-base font-medium text-zinc-900 dark:text-zinc-100">1.0.0</div>
         </div>
         
-        <nav className="mt-1">
+        <nav className="mt-2">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex flex-col items-center p-2 text-xs
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm
                 ${activeTab === item.id 
                   ? 'bg-zinc-900 text-white dark:bg-white dark:text-black' 
                   : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'
                 }`}
             >
-              {item.icon}
-              <span className="mt-1 text-[10px] whitespace-nowrap">{item.title}</span>
+              <div className="w-5 h-5 flex-shrink-0">
+                {item.icon}
+              </div>
+              <span className="whitespace-nowrap">{item.title}</span>
             </button>
           ))}
         </nav>
       </div>
 
-      {/* 主内容区 */}
-      <div className="flex-1 min-w-0 overflow-hidden flex flex-col">
+      {/* 主内容区 - 添加最小宽度 */}
+      <div className="flex-1 w-[600px] min-w-[600px] overflow-auto p-6 bg-white dark:bg-zinc-900">
         {getActiveComponent()}
       </div>
     </div>
