@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import './index.css';
+import { lazy, Suspense } from 'react';
+
+// 懒加载主组件
+const Layout = lazy(() => import('./components/Layout'));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Suspense fallback={<div>加载中...</div>}>
+    <Layout />
+  </Suspense>
 );

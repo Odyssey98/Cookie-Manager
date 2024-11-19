@@ -16,7 +16,7 @@
   ],
   "action": {
     "default_title": "Cookie 管理器",
-    "default_popup": "index.html",
+    "default_popup": "popup.html",
     "default_width": 800,
     "default_height": 600
   },
@@ -30,5 +30,9 @@
   "icons": {
     "48": "icon48.png",
     "128": "icon128.png"
-  }
+  },
+  "web_accessible_resources": [{
+    "resources": ["index.html", "*.js", "*.css"],
+    "matches": ["<all_urls>"]
+  }]
 }
